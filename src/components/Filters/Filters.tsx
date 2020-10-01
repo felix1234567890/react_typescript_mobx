@@ -1,4 +1,5 @@
-import React from "react";
+import React, { FC } from "react";
+import { ValueType } from "react-select";
 import { SortBy, SelectField } from "./styles";
 
 export type Option = {
@@ -14,7 +15,11 @@ const options: Option[] = [
   { value: "male", label: "Male" },
   { value: "female", label: "Female" },
 ];
-const Filters = () => {
+interface FiltersProps {
+  sort: (sortOrder: ValueType<Option>) => void;
+  sortOrder: Option;
+}
+const Filters: FC<FiltersProps> = ({ sort, sortOrder }) => {
   return (
     <SortBy>
       <span>Sort By</span>
@@ -22,6 +27,8 @@ const Filters = () => {
         classNamePrefix="react-select"
         defaultValue={options[0]}
         options={options}
+        value={sortOrder}
+        onChange={sort}
       />
     </SortBy>
   );

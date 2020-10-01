@@ -20,6 +20,9 @@ export class UserStore {
   users: User[] = [];
 
   @observable
+  sortedUsers: User[] = [];
+
+  @observable
   loading: boolean = false;
 
   @observable
@@ -27,7 +30,7 @@ export class UserStore {
 
   @computed
   get usersCount() {
-    return this.users.length;
+    return this.sortedUsers.length;
   }
 
   constructor() {
@@ -42,25 +45,26 @@ export class UserStore {
     const shuffledUsers = this.shuffleUsers(users);
     runInAction(() => {
       this.users = shuffledUsers;
+      this.sortedUsers = shuffledUsers;
       this.loading = false;
     });
   };
 
   @action
   filterUsers = (value: string) => {
-    const filteredUsers = this.users.filter((user: User) => {
+    const filteredUsers = this.sortedUsers.filter((user: User) => {
       if (user.country.toLowerCase().startsWith(value.toLowerCase()))
         return true;
       return false;
     });
     filteredUsers.sort((a: any, b: any) => a.country - b.country);
-    this.users = filteredUsers;
+    this.sortedUsers = filteredUsers;
   };
   @action
   paginateUsers = (pageNumber = 1, itemsPerPage = 6) => {
     const skip = (pageNumber - 1) * itemsPerPage;
-    if (this.users.length > 0) {
-      const shownUsers = this.users.slice(skip, skip + itemsPerPage);
+    if (this.sortedUsers.length > 0) {
+      const shownUsers = this.sortedUsers.slice(skip, skip + itemsPerPage);
       this.shownUsers = shownUsers;
     }
   };
@@ -101,7 +105,7 @@ export class UserStore {
       default:
         sortedUsers = this.users;
     }
-    this.users = sortedUsers;
+    this.sortedUsers = sortedUsers;
   };
   private shuffleUsers(users: User[]): User[] {
     for (let i = users.length - 1; i > 0; i--) {
