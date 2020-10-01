@@ -10,7 +10,7 @@ export const Container = styled.div`
     text-align: center;
   }
 `;
-export const Cards = styled.div`
+export const Cards = styled.section`
   display: grid;
   grid-template-columns: repeat(2, 49%);
   justify-content: space-between;

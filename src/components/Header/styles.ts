@@ -26,7 +26,7 @@ export const Header = styled.header`
 export const HeaderTitle = styled.div`
   font-weight: 600;
   font-size: 3rem;
-  color: #fff;
+  color: ${({ color }) => color ?? "#fff"};
   @media only screen and (max-width: 600px) {
     margin-bottom: 1rem;
   }
