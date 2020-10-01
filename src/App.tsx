@@ -1,10 +1,11 @@
 import React from "react";
 import { useRootStore } from "./store/RootState";
+import Header from "./components/Header";
 
 function App() {
   const { loading } = useRootStore();
   console.log(loading);
-  return <h1>Hello</h1>;
+  return <Header />;
 }
 
 export default App;
