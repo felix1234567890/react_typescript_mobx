@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { action, observable, computed } from "mobx";
 
 interface User {
   name: string;
@@ -13,11 +13,22 @@ export class UserStore {
   users: User[] = [];
 
   @observable
+  loading: boolean = false;
+
+  @computed
   shownUsers: User[] = [];
 
   @observable
   sortedUsers: User[] = [];
 
-  @observable
-  loading: boolean = false;
+  @action
+  filterUsers(value: string) {
+    const filteredUsers = this.users.filter((user: User) => {
+      if (user.country.toLowerCase().startsWith(value.toLowerCase()))
+        return true;
+      return false;
+    });
+    filteredUsers.sort((a: any, b: any) => a.country - b.country);
+    this.sortedUsers = filteredUsers;
+  }
 }
