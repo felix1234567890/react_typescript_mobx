@@ -1,7 +1,7 @@
 import { UserStore } from "./UserStore";
 import React, { createContext, PropsWithChildren, useContext } from "react";
 
-const RootStateContext = createContext({} as UserStore);
+const RootStateContext = createContext<UserStore>({} as UserStore);
 const userStore = new UserStore();
 export const RootStateProvider: React.FC<PropsWithChildren<{}>> = ({
   children,
