@@ -1,4 +1,10 @@
-import { action, makeObservable, observable, runInAction } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 
 export interface User {
   name: string;
@@ -19,8 +25,10 @@ export class UserStore {
   @observable
   shownUsers: User[] = [];
 
-  @observable
-  sortedUsers: User[] = [];
+  @computed
+  get usersCount() {
+    return this.users.length;
+  }
 
   constructor() {
     makeObservable(this);
@@ -46,7 +54,54 @@ export class UserStore {
       return false;
     });
     filteredUsers.sort((a: any, b: any) => a.country - b.country);
-    this.sortedUsers = filteredUsers;
+    this.users = filteredUsers;
+  };
+  @action
+  paginateUsers = (pageNumber = 1, itemsPerPage = 6) => {
+    const skip = (pageNumber - 1) * itemsPerPage;
+    if (this.users.length > 0) {
+      const shownUsers = this.users.slice(skip, skip + itemsPerPage);
+      this.shownUsers = shownUsers;
+    }
+  };
+
+  @action
+  sortUsers = (sortOrder: string) => {
+    if (this.users.length === 0) return;
+    let sortedUsers;
+    switch (sortOrder) {
+      case "desc":
+        sortedUsers = this.users.sort((a: User, b: User) => {
+          return b.age - a.age;
+        });
+        break;
+      case "asc":
+        sortedUsers = this.users.sort((a: User, b: User) => {
+          return a.age - b.age;
+        });
+        break;
+      case "under40":
+        sortedUsers = this.users
+          .filter((user: User) => user.age < 40)
+          .sort((a: User, b: User) => a.age - b.age);
+        break;
+      case "over40":
+        sortedUsers = this.users
+          .filter((user: User) => user.age > 40)
+          .sort((a: User, b: User) => a.age - b.age);
+        break;
+      case "female":
+        sortedUsers = this.users.filter(
+          (user: User) => user.gender === "female"
+        );
+        break;
+      case "male":
+        sortedUsers = this.users.filter((user: User) => user.gender === "male");
+        break;
+      default:
+        sortedUsers = this.users;
+    }
+    this.users = sortedUsers;
   };
   private shuffleUsers(users: User[]): User[] {
     for (let i = users.length - 1; i > 0; i--) {
