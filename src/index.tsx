@@ -7,6 +7,8 @@ import { theme } from "./styles/theme";
 import GlobalStyle from "./styles/GlobalStyle";
 import { UserStore } from "./store/UserStore";
 import { RootStateProvider } from "./store/RootState";
+import "./i18n";
+
 const userStore = new UserStore();
 export const RootStoreContext = React.createContext(userStore);
 

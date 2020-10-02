@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { ValueType } from "react-select";
 import { SortBy, SelectField } from "./styles";
 
 export type Option = {
@@ -16,7 +15,7 @@ const options: Option[] = [
   { value: "female", label: "Female" },
 ];
 interface FiltersProps {
-  sort: (sortOrder: ValueType<Option>) => void;
+  sort: (sortOrder: Option) => void;
   sortOrder: Option;
 }
 const Filters: FC<FiltersProps> = ({ sort, sortOrder }) => {
