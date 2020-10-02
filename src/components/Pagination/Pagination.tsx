@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useTranslation, UseTranslationResponse } from "react-i18next";
 import { PaginationButtons } from "./styles";
 
 interface PaginationProps {
@@ -14,11 +15,16 @@ const Pagination: FC<PaginationProps> = ({
   increaseNumber,
   decreaseNumber,
 }) => {
+  const { t }: UseTranslationResponse = useTranslation();
   return (
     <PaginationButtons>
       {`${pageNumber} / ${pageCount}`}
-      {pageNumber > 1 && <button onClick={decreaseNumber}>Previous</button>}
-      {pageNumber < pageCount && <button onClick={increaseNumber}>Next</button>}
+      {pageNumber > 1 && (
+        <button onClick={decreaseNumber}>{t("previous")}</button>
+      )}
+      {pageNumber < pageCount && (
+        <button onClick={increaseNumber}>{t("next")}</button>
+      )}
     </PaginationButtons>
   );
 };

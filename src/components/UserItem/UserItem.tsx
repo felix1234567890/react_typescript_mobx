@@ -1,8 +1,10 @@
 import React, { FC } from "react";
+import { useTranslation, UseTranslationResponse } from "react-i18next";
 import { User } from "../../store/UserStore";
 import { Card, UserDetails } from "./styles";
 
 const UserItem: FC<User> = ({ name, email, photo, country, gender, age }) => {
+  const { t }: UseTranslationResponse = useTranslation();
   return (
     <Card>
       <img src={photo} alt="user avatar" />
@@ -12,13 +14,13 @@ const UserItem: FC<User> = ({ name, email, photo, country, gender, age }) => {
           <strong>Email:</strong> {email}
         </p>
         <p>
-          <strong>Country:</strong> {country}
+          <strong>{t("country")}:</strong> {country}
         </p>
         <p>
-          <strong>Gender:</strong> {gender}
+          <strong>{t("gender")}:</strong> {gender}
         </p>
         <p>
-          <strong>Age:</strong> {age}
+          <strong>{t("age")}:</strong> {age}
         </p>
       </UserDetails>
     </Card>

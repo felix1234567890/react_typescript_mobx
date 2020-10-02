@@ -1,27 +1,30 @@
 import React, { FC } from "react";
+import { useTranslation, UseTranslationResponse } from "react-i18next";
 import { SortBy, SelectField } from "./styles";
 
 export type Option = {
   value: string;
   label: string;
 };
-const options: Option[] = [
-  { value: "", label: "None" },
-  { value: "asc", label: "Age - ascending" },
-  { value: "desc", label: "Age - descending" },
-  { value: "under40", label: "Age - under 40" },
-  { value: "over40", label: "Age - over 40" },
-  { value: "male", label: "Male" },
-  { value: "female", label: "Female" },
-];
+
 interface FiltersProps {
   sort: (sortOrder: Option) => void;
   sortOrder: Option;
 }
 const Filters: FC<FiltersProps> = ({ sort, sortOrder }) => {
+  const { t }: UseTranslationResponse = useTranslation();
+  const options: Option[] = [
+    { value: "", label: t("none") },
+    { value: "asc", label: t("ageAsc") },
+    { value: "desc", label: t("ageDesc") },
+    { value: "under40", label: t("ageUnder") },
+    { value: "over40", label: t("ageOver") },
+    { value: "male", label: t("male") },
+    { value: "female", label: t("female") },
+  ];
   return (
     <SortBy>
-      <span>Sort By</span>
+      <span>{t("sortBy")}</span>
       <SelectField
         classNamePrefix="react-select"
         defaultValue={options[0]}

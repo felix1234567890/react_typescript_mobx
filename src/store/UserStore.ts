@@ -52,7 +52,7 @@ export class UserStore {
 
   @action
   filterUsers = (value: string) => {
-    const filteredUsers = this.sortedUsers.filter((user: User) => {
+    const filteredUsers = this.users.filter((user: User) => {
       if (user.country.toLowerCase().startsWith(value.toLowerCase()))
         return true;
       return false;
