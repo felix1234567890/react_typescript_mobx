@@ -53,8 +53,8 @@ export class UserStore {
   @action
   filterUsers = (value: string) => {
     const filteredUsers = this.users.filter((user: User) => {
-      if (user.country.toLowerCase().startsWith(value.toLowerCase()))
-        return true;
+      const val = new RegExp(value.toLowerCase(), "g");
+      if (user.country.toLowerCase().match(val)) return true;
       return false;
     });
     filteredUsers.sort((a: any, b: any) => a.country - b.country);
@@ -66,6 +66,8 @@ export class UserStore {
     if (this.sortedUsers.length > 0) {
       const shownUsers = this.sortedUsers.slice(skip, skip + itemsPerPage);
       this.shownUsers = shownUsers;
+    } else {
+      this.shownUsers = [];
     }
   };
 

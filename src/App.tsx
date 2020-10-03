@@ -37,6 +37,7 @@ const App = observer(() => {
 
   const handleSearch = (event: React.FormEvent<HTMLInputElement>) => {
     filterUsers(event.currentTarget.value);
+    paginateUsers();
   };
 
   const increaseNumber = (): void => {
@@ -87,12 +88,18 @@ const App = observer(() => {
       <Header search={handleSearch} />
       <Filters sort={handleSortByAge} sortOrder={sortOrder} />
       <UsersList users={shownUsers} loading={loading} />
-      <Pagination
-        pageCount={paginationState.pageCount}
-        pageNumber={paginationState.pageNumber}
-        increaseNumber={increaseNumber}
-        decreaseNumber={decreaseNumber}
-      />
+      {paginationState.pageCount > 0 ? (
+        <Pagination
+          pageCount={paginationState.pageCount}
+          pageNumber={paginationState.pageNumber}
+          increaseNumber={increaseNumber}
+          decreaseNumber={decreaseNumber}
+        />
+      ) : (
+        <div className="container">
+          <h2>No users to show</h2>
+        </div>
+      )}
     </>
   );
 });

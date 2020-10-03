@@ -15,5 +15,10 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
     }
+    .container {
+        display:flex;
+        align-items:center;
+        justify-content:center
+    }
 `;
 export default GlobalStyle;
