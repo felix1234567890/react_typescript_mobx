@@ -21,4 +21,8 @@ describe("Header", () => {
       "Aplikacija za pretragu korisnika"
     );
   });
+  it("Should show correct page number", () => {
+    cy.get("input[type=search]").type("France");
+    cy.get("[data-cy=pages]").should("contain.text", "1 / 1");
+  });
 });

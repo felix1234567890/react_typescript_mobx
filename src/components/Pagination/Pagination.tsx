@@ -17,7 +17,7 @@ const Pagination: FC<PaginationProps> = ({
 }) => {
   const { t }: UseTranslationResponse = useTranslation();
   return (
-    <PaginationButtons>
+    <PaginationButtons data-cy="pages">
       {`${pageNumber} / ${pageCount}`}
       {pageNumber > 1 && (
         <button onClick={decreaseNumber}>{t("previous")}</button>
